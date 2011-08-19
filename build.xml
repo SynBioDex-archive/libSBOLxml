@@ -3,9 +3,11 @@
 	<property name="jar.filename" value="libSBOLcore.jar"/>
 	<property name="build.dir" value="build"/>
 	<property name="src.dir" value="src"/>
+	<property name="core.src.dir" value="core/src"/>
 
 	<target name="build">
 		<mkdir dir="${build.dir}"/>
+		<javac srcdir="${core.src.dir}" destdir="${build.dir}" includeantruntime='false' />
 		<javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime='false' />
 	</target>
 
