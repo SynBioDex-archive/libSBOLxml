@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE qiml SYSTEM "classpath:///qiml.dtd">
+<qiml>
+    <elementDefinition ID="Collection" tagName="Collection">
+        <targetClass>org.sbolstandard.core.Collection</targetClass>
+        <childElement>
+            <accessClass>com.jxml.quick.access.QMALAccess</accessClass>
+            <elementDefinition tagName="_attributes">
+                <targetFactory>com.jxml.quick.tf.QMALTF</targetFactory>
+                <childElement optional="True">
+                    <accessProperty>description</accessProperty>
+                    <elementDefinition ID="Collection.description"
+                                       tagName="description">
+                        <targetEditor class="sun.beans.editors.StringEditor"
+                                      targetClass="java.lang.String"/>
+                    </elementDefinition>
+                </childElement>
+                <childElement>
+                    <accessProperty>displayId</accessProperty>
+                    <elementDefinition ID="Collection.displayId"
+                                       tagName="displayId">
+                        <targetEditor class="sun.beans.editors.StringEditor"
+                                      targetClass="java.lang.String"/>
+                    </elementDefinition>
+                </childElement>
+                <childElement optional="True">
+                    <accessProperty>name</accessProperty>
+                    <elementDefinition ID="Collection.name" tagName="name">
+                        <targetEditor class="sun.beans.editors.StringEditor"
+                                      targetClass="java.lang.String"/>
+                    </elementDefinition>
+                </childElement>
+            </elementDefinition>
+        </childElement>
+        <childElement repeating="True">
+            <accessListProperty>component</accessListProperty>
+            <elementDefinition ID="DnaComponent" tagName="DnaComponent">
+                <targetClass>org.sbolstandard.core.DnaComponent</targetClass>
+                <childElement>
+                    <accessClass>com.jxml.quick.access.QMALAccess</accessClass>
+                    <elementDefinition tagName="_attributes">
+                        <targetFactory>com.jxml.quick.tf.QMALTF</targetFactory>
+                        <childElement optional="True">
+                            <accessProperty>description</accessProperty>
+                            <elementDefinition ID="DnaComponent.description"
+                                               tagName="description">
+                                <targetEditor
+                                              class="sun.beans.editors.StringEditor"
+                                              targetClass="java.lang.String"/>
+                            </elementDefinition>
+                        </childElement>
+                        <childElement>
+                            <accessProperty>displayId</accessProperty>
+                            <elementDefinition ID="DnaComponent.displayId"
+                                               tagName="displayId">
+                                <targetEditor
+                                              class="sun.beans.editors.StringEditor"
+                                              targetClass="java.lang.String"/>
+                            </elementDefinition>
+                        </childElement>
+                        <childElement default="true" optional="True">
+                            <accessProperty>isCircular</accessProperty>
+                            <elementDefinition ID="DnaComponent.isCircular"
+                                               tagName="isCircular">
+                                <targetEditor
+                                              class="sun.beans.editors.StringEditor"
+                                              targetClass="java.lang.String"/>
+                            </elementDefinition>
+                        </childElement>
+                        <childElement optional="True">
+                            <accessProperty>name</accessProperty>
+                            <elementDefinition ID="DnaComponent.name"
+                                               tagName="name">
+                                <targetEditor
+                                              class="sun.beans.editors.StringEditor"
+                                              targetClass="java.lang.String"/>
+                            </elementDefinition>
+                        </childElement>
+                    </elementDefinition>
+                </childElement>
+                <childElement repeating="True">
+                    <accessListProperty>type</accessListProperty>
+                    <elementDefinition ID="URI" tagName="URI">
+                        <targetEditor class="sun.beans.editors.StringEditor"
+                                      targetClass="java.lang.String"/>
+                        <childElement>
+                            <accessClass>com.jxml.quick.access.QMALAccess</accessClass>
+                            <elementDefinition tagName="_attributes">
+                                <targetFactory>com.jxml.quick.tf.QMALTF</targetFactory>
+                            </elementDefinition>
+                        </childElement>
+                    </elementDefinition>
+                </childElement>
+                <childElement>
+                    <accessProperty>dnaSequence</accessProperty>
+                    <elementDefinition ID="DnaSequence" tagName="DnaSequence">
+                        <targetEditor class="sun.beans.editors.StringEditor"
+                                      targetClass="java.lang.String"/>
+                        <childElement>
+                            <accessClass>com.jxml.quick.access.QMALAccess</accessClass>
+                            <elementDefinition tagName="_attributes">
+                                <targetFactory>com.jxml.quick.tf.QMALTF</targetFactory>
+                            </elementDefinition>
+                        </childElement>
+                    </elementDefinition>
+                </childElement>
+                <childElement repeating="True">
+                    <accessListProperty>annotation</accessListProperty>
+                    <elementDefinition ID="SequenceAnnotation"
+                                       tagName="SequenceAnnotation">
+                        <targetClass>org.sbolstandard.core.SequenceAnnotation</targetClass>
+                        <childElement>
+                            <accessClass>com.jxml.quick.access.QMALAccess</accessClass>
+                            <elementDefinition tagName="_attributes">
+                                <targetFactory>com.jxml.quick.tf.QMALTF</targetFactory>
+                                <childElement>
+                                    <accessProperty>end</accessProperty>
+                                    <elementDefinition
+                                                       ID="SequenceAnnotation.end"
+                                                       tagName="end">
+                                        <targetEditor
+                                                      class="sun.beans.editors.StringEditor"
+                                                      targetClass="java.lang.String"/>
+                                    </elementDefinition>
+                                </childElement>
+                                <childElement>
+                                    <accessProperty>genbankStart</accessProperty>
+                                    <elementDefinition
+                                                       ID="SequenceAnnotation.genbankStart"
+                                                       tagName="genbankStart">
+                                        <targetEditor
+                                                      class="sun.beans.editors.StringEditor"
+                                                      targetClass="java.lang.String"/>
+                                    </elementDefinition>
+                                </childElement>
+                                <childElement>
+                                    <accessProperty>strand</accessProperty>
+                                    <elementDefinition
+                                                       ID="SequenceAnnotation.strand"
+                                                       tagName="strand">
+                                        <targetEditor
+                                                      class="sun.beans.editors.StringEditor"
+                                                      targetClass="java.lang.String"/>
+                                    </elementDefinition>
+                                </childElement>
+                            </elementDefinition>
+                        </childElement>
+                        <childElement repeating="True">
+                            <accessListProperty>dnaComponent</accessListProperty>
+                            <link href="#DnaComponent"/>
+                        </childElement>
+                    </elementDefinition>
+                </childElement>
+            </elementDefinition>
+        </childElement>
+    </elementDefinition>
+</qiml>

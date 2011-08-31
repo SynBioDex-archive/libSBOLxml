@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<qdml root="Collection">
+    <bean tag="Collection">
+        <attributes>
+            <item coin="Collection.displayId"/>
+            <item coin="Collection.name" optional="true"/>
+            <item coin="Collection.description" optional="true"/>
+        </attributes>
+        <elements>
+            <item coin="DnaComponent" repeating="true"/>
+        </elements>
+    </bean>
+    <text label="Collection.displayId" tag="displayId"/>
+    <text label="Collection.name" tag="name"/>
+    <text label="Collection.description" tag="description"/>
+    <bean tag="DnaComponent">
+        <attributes>
+            <item coin="DnaComponent.displayId"/>
+            <item coin="DnaComponent.name" optional="true"/>
+            <item coin="DnaComponent.description" optional="true"/>
+            <item coin="DnaComponent.isCircular" optional="true" value="true"/>
+        </attributes>
+        <elements>
+            <item coin="URI" repeating="true"/>
+            <item coin="DnaSequence"/>
+            <item coin="SequenceAnnotation" repeating="true"/>
+        </elements>
+    </bean>
+    <text label="DnaComponent.displayId" tag="displayId"/>
+    <text label="DnaComponent.name" tag="name"/>
+    <text label="DnaComponent.description" tag="description"/>
+    <text label="DnaComponent.isCircular" tag="isCircular"/>
+    <text tag="DnaSequence"/>
+    <text tag="URI"/>
+    <bean tag="SequenceAnnotation">
+        <attributes>
+            <item coin="SequenceAnnotation.genbankStart"/>
+            <item coin="SequenceAnnotation.end"/>
+            <item coin="SequenceAnnotation.strand"/>
+        </attributes>
+        <elements>
+            <item coin="DnaComponent" repeating="true"/>
+        </elements>
+    </bean>
+    <text label="SequenceAnnotation.genbankStart" tag="genbankStart"/>
+    <text label="SequenceAnnotation.end" tag="end"/>
+    <text label="SequenceAnnotation.strand" tag="strand"/>
+</qdml>

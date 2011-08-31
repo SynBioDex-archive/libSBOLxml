@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE qjml SYSTEM "classpath:///qjml.dtd">
+<qjml root="Collection">
+    <bean tag="Collection">
+        <targetClass>org.sbolstandard.core.Collection</targetClass>
+        <attributes>
+            <item coin="Collection.displayId">
+                <property name="displayId"/>
+            </item>
+            <item coin="Collection.name" optional="True">
+                <property name="collection_name_2"/>
+            </item>
+            <item coin="Collection.description" optional="True">
+                <property name="collection_description_3"/>
+            </item>
+        </attributes>
+        <elements>
+            <item coin="DnaComponent" repeating="True">
+                <property kind="list" name="dnaComponent_4"/>
+            </item>
+        </elements>
+    </bean>
+    <text label="Collection.displayId" tag="displayId"/>
+    <text label="Collection.name" tag="name"/>
+    <text label="Collection.description" tag="description"/>
+    <bean tag="DnaComponent">
+        <targetClass>org.sbolstandard.core.DnaComponent</targetClass>
+        <attributes>
+            <item coin="DnaComponent.displayId">
+                <property name="dnaComponent_displayId_5"/>
+            </item>
+            <item coin="DnaComponent.name" optional="True">
+                <property name="dnaComponent_name_6"/>
+            </item>
+            <item coin="DnaComponent.description" optional="True">
+                <property name="dnaComponent_description_7"/>
+            </item>
+            <item coin="DnaComponent.isCircular" optional="True" value="true">
+                <property initializer="true" name="dnaComponent_isCircular_8"/>
+            </item>
+        </attributes>
+        <elements>
+            <item coin="URI" repeating="True">
+                <property kind="list" name="URI_9"/>
+            </item>
+            <item coin="DnaSequence">
+                <property name="dnaSequence_10"/>
+            </item>
+            <item coin="SequenceAnnotation" repeating="True">
+                <property kind="list" name="sequenceAnnotation_11"/>
+            </item>
+        </elements>
+    </bean>
+    <text label="DnaComponent.displayId" tag="displayId"/>
+    <text label="DnaComponent.name" tag="name"/>
+    <text label="DnaComponent.description" tag="description"/>
+    <text label="DnaComponent.isCircular" tag="isCircular"/>
+    <text tag="DnaSequence"/>
+    <text tag="URI"/>
+    <bean tag="SequenceAnnotation">
+        <targetClass>org.sbolstandard.core.SequenceAnnotation</targetClass>
+        <attributes>
+            <item coin="SequenceAnnotation.genbankStart">
+                <property name="sequenceAnnotation_genbankStart_12"/>
+            </item>
+            <item coin="SequenceAnnotation.end">
+                <property name="sequenceAnnotation_end_13"/>
+            </item>
+            <item coin="SequenceAnnotation.strand">
+                <property name="sequenceAnnotation_strand_14"/>
+            </item>
+        </attributes>
+        <elements>
+            <item coin="DnaComponent" repeating="True">
+                <property kind="list" name="dnaComponent_15"/>
+            </item>
+        </elements>
+    </bean>
+    <text label="SequenceAnnotation.genbankStart" tag="genbankStart"/>
+    <text label="SequenceAnnotation.end" tag="end"/>
+    <text label="SequenceAnnotation.strand" tag="strand"/>
+</qjml>

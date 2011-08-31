@@ -5,10 +5,27 @@
 	<property name="src.dir" value="src"/>
 	<property name="core.src.dir" value="core/src"/>
 
+	<path id="xml.classpath">
+		<fileset dir="libs"><include name="*.jar"/></fileset>
+	</path>	
+
+	<target name="clean">
+		<delete><fileset dir="${build.dir}" includes="**/*"/></delete>
+		<delete file="${jar.filename}"/>
+	</target>
+
 	<target name="build">
 		<mkdir dir="${build.dir}"/>
-		<javac srcdir="${core.src.dir}" destdir="${build.dir}" includeantruntime='false' />
-		<javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime='false' />
+		<javac srcdir="${core.src.dir}" destdir="${build.dir}" includeantruntime='false' debug="on" debuglevel="lines,vars,source"></javac>
+		<javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime='false' debug="on" debuglevel="lines,vars,source">
+			<classpath refid="xml.classpath"/>
+		</javac>
+		<copy todir="${build.dir}">
+			<fileset dir="${src.dir}">
+				<include name="**/*"/>
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="jar" depends="build">

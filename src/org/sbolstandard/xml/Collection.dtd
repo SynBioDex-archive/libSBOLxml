@@ -1,0 +1,25 @@
+<!ELEMENT Collection (DnaComponent+)>
+<!ATTLIST Collection
+	displayId	PCDATA	#REQUIRED
+	name		PCDATA	#IMPLIED
+	description	PCDATA	#IMPLIED
+>
+
+<!ELEMENT DnaComponent (URI+, DnaSequence, SequenceAnnotation+)>
+<!ATTLIST DnaComponent
+	displayId	PCDATA	#REQUIRED
+	name		PCDATA	#IMPLIED
+	description	PCDATA	#IMPLIED
+	isCircular	boolean "true"
+>
+
+<!ELEMENT DnaSequence (#PCDATA)>
+
+<!ELEMENT URI (#PCDATA)>
+
+<!ELEMENT SequenceAnnotation (DnaComponent+)>
+<!ATTLIST SequenceAnnotation
+	genbankStart	PCDATA	#REQUIRED
+	end				PCDATA	#REQUIRED
+	strand			PCDATA	#REQUIRED
+>
