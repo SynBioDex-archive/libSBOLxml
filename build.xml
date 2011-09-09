@@ -5,6 +5,11 @@
 	<property name="src.dir" value="src"/>
 	<property name="core.src.dir" value="core/src"/>
 
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete file="${jar.filename}" />
+	</target>
+
 	<target name="build">
 		<mkdir dir="${build.dir}"/>
 		<javac srcdir="${core.src.dir}" destdir="${build.dir}" includeantruntime='false' />
