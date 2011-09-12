@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:version="2.0">
 
-	<xsd:element name="DnaSequenceImpl" type="DnaSequenceImpl"/>
+	<xsd:element name="DnaSequence" type="DnaSequenceImpl"/>
 	<xsd:complexType name="DnaSequenceImpl">
 		<xsd:sequence>
 			<xsd:element name="nucleotides" type="xsd:string" />
 		</xsd:sequence>
 	</xsd:complexType>
 	
-	<xsd:element name="SequenceAnnotationImpl" type="SequenceAnnotationImpl"/>
+	<xsd:element name="SequenceAnnotation" type="SequenceAnnotationImpl"/>
 	<xsd:complexType name="SequenceAnnotationImpl">
 		<xsd:sequence>
-			<xsd:element name="subComponents" type="DnaComponentImpl" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="subComponent" type="DnaComponentImpl" minOccurs="0" maxOccurs="unbounded" />
 			<xsd:element name="precedes" type="xsd:IDREF" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:ID" use="required"/>
@@ -20,12 +20,12 @@
 		<xsd:attribute name="strand" type="xsd:string" use="required"/>
 	</xsd:complexType>
 	
-	<xsd:element name="DnaComponentImpl" type="DnaComponentImpl"/>
+	<xsd:element name="DnaComponent" type="DnaComponentImpl"/>
 	<xsd:complexType name="DnaComponentImpl">
 		<xsd:sequence>
 			<xsd:element name="type" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
 			<xsd:element name="sequence" type="DnaSequenceImpl" minOccurs="0" maxOccurs="1" />
-			<xsd:element name="annotations" type="SequenceAnnotationImpl" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="annotation" type="SequenceAnnotationImpl" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
 		<xsd:attribute name="displayId" type="xsd:string" use="required"/>
 		<xsd:attribute name="name" type="xsd:string" />
@@ -33,10 +33,10 @@
 		<xsd:attribute name="isCircular" type="xsd:boolean" />
 	</xsd:complexType>
 
-	<xsd:element name="CollectionImpl" type="CollectionImpl"/>
+	<xsd:element name="Collection" type="CollectionImpl"/>
 	<xsd:complexType name="CollectionImpl">
 		<xsd:sequence>
-			<xsd:element name="components" type="DnaComponentImpl" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="component" type="DnaComponentImpl" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
 		<xsd:attribute name="displayId" type="xsd:string" use="required"/>
 		<xsd:attribute name="name" type="xsd:string" />
