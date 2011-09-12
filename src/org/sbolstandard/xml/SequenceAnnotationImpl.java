@@ -6,7 +6,7 @@
 //
 
 
-package src.org.sbolstandard.xml;
+package org.sbolstandard.xml;
 
 import java.util.ArrayList;
 import java.util.List;

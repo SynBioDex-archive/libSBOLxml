@@ -4,22 +4,42 @@
 	<property name="build.dir" value="build"/>
 	<property name="src.dir" value="src"/>
 	<property name="core.src.dir" value="core/src"/>
+	<property name="test.dir" value="test"/>
 
+	<path id="xml.classpath">
+		<fileset dir="libs"><include name="*.jar"/></fileset>
+	</path>
+	
 	<target name="clean">
 		<delete dir="${build.dir}" />
+		<delete dir="${test.dir}" />
 		<delete file="${jar.filename}" />
 	</target>
 
 	<target name="build">
 		<mkdir dir="${build.dir}"/>
-		<javac srcdir="${core.src.dir}" destdir="${build.dir}" includeantruntime='false' />
-		<javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime='false' />
+		<javac srcdir="${core.src.dir}" destdir="${build.dir}" includeantruntime='false' debug="on" debuglevel="lines,vars,source">
+			<classpath refid="xml.classpath"/>
+		</javac>
+		<javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime='false' debug="on" debuglevel="lines,vars,source">
+			<classpath refid="xml.classpath"/>
+		</javac>
 	</target>
 
 	<target name="jar" depends="build">
 		<jar jarfile="${jar.filename}">
 			<fileset dir="${build.dir}"/>
 		</jar>
+	</target>
+
+	<target name="test" depends="jar">
+		<mkdir dir="${test.dir}" />
+		<junit>
+			<test name="org.sbolstandard.xml.test.TestMarshalling"/>
+			<formatter type="plain" usefile="false"/>
+			<classpath refid="xml.classpath"/>
+			<classpath><fileset file="${jar.filename}" /></classpath>
+		</junit>
 	</target>
 	
 </project>

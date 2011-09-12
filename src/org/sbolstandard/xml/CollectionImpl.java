@@ -6,7 +6,7 @@
 //
 
 
-package src.org.sbolstandard.xml;
+package org.sbolstandard.xml;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +39,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "CollectionImpl", propOrder = {
-    "components"
-})
+@XmlType(name = "CollectionImpl", propOrder = { "components" })
 public class CollectionImpl {
 
     protected List<DnaComponentImpl> components;

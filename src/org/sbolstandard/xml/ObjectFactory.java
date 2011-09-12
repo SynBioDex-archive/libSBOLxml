@@ -6,7 +6,7 @@
 //
 
 
-package src.org.sbolstandard.xml;
+package org.sbolstandard.xml;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
