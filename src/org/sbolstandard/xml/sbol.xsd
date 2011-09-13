@@ -12,7 +12,7 @@
 	<xsd:complexType name="SequenceAnnotationImpl">
 		<xsd:sequence>
 			<xsd:element name="subComponent" type="DnaComponentImpl" minOccurs="0" maxOccurs="unbounded" />
-			<xsd:element name="precedes" type="xsd:IDREF" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="precede" type="xsd:IDREF" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:ID" use="required"/>
 		<xsd:attribute name="genbankStart" type="xsd:int" use="required"/>

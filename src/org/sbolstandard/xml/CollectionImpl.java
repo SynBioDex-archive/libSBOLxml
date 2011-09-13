@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.*;
 
+import org.sbolstandard.core.*;
 
 /**
  * <p>Java class for CollectionImpl complex type.
@@ -43,15 +44,15 @@ import javax.xml.bind.annotation.*;
     "component"
 })
 @XmlRootElement(name = "Collection")
-public class CollectionImpl {
+public class CollectionImpl implements Collection {
 
-    protected List<DnaComponentImpl> component;
+    protected List<DnaComponentImpl> component = new ArrayList<DnaComponentImpl>();
     @XmlAttribute(required = true)
-    protected String displayId;
+    protected String displayId = null;
     @XmlAttribute
-    protected String name;
+    protected String name = null;
     @XmlAttribute
-    protected String description;
+    protected String description = null;
 
     /**
      * Gets the value of the component property.
@@ -76,10 +77,15 @@ public class CollectionImpl {
      * 
      */
     public List<DnaComponentImpl> getComponent() {
-        if (component == null) {
-            component = new ArrayList<DnaComponentImpl>();
-        }
-        return this.component;
+        return component;
+    }
+
+    public java.util.Collection<DnaComponent> getComponents(){
+        return (java.util.Collection<DnaComponent>)(java.util.Collection<?>)component;
+    }
+
+    public void addComponent(DnaComponent component){
+        this.component.add((DnaComponentImpl)component);
     }
 
     /**

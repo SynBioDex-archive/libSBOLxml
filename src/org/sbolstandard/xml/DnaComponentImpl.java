@@ -8,13 +8,15 @@
 
 package org.sbolstandard.xml;
 
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.List;
+import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import org.sbolstandard.core.*;
 
 /**
  * <p>Java class for DnaComponentImpl complex type.
@@ -47,19 +49,19 @@ import javax.xml.bind.annotation.XmlType;
     "sequence",
     "annotation"
 })
-public class DnaComponentImpl {
+public class DnaComponentImpl implements DnaComponent {
 
-    protected List<String> type;
-    protected DnaSequenceImpl sequence;
-    protected List<SequenceAnnotationImpl> annotation;
+    protected List<String> type = new ArrayList<String>();
+    protected DnaSequenceImpl sequence = null;
+    protected List<SequenceAnnotationImpl> annotation = new ArrayList<SequenceAnnotationImpl>();
     @XmlAttribute(required = true)
-    protected String displayId;
+    protected String displayId = null;
     @XmlAttribute
-    protected String name;
+    protected String name = null;
     @XmlAttribute
-    protected String description;
+    protected String description = null;
     @XmlAttribute
-    protected Boolean isCircular;
+    protected Boolean isCircular = true;
 
     /**
      * Gets the value of the type property.
@@ -84,12 +86,41 @@ public class DnaComponentImpl {
      * 
      */
     public List<String> getType() {
-        if (type == null) {
-            type = new ArrayList<String>();
-        }
-        return this.type;
+        return type;
     }
 
+    public void addType(java.net.URI uri) {
+        this.type.add(uri.toString());
+    }
+
+    public java.util.Collection<URI> getTypes() {
+        ArrayList<URI> result = new ArrayList<URI>();
+        for(int i=0; i < type.size(); i++){
+            try{
+                result.add(new URI(type.get(i)));
+            } catch (java.net.URISyntaxException e){
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public void setDnaSequence(org.sbolstandard.core.DnaSequence sequence){
+        this.sequence = (DnaSequenceImpl)sequence;
+    } 
+
+    public DnaSequence getDnaSequence(){ return sequence; } 
+    
+    public void addAnnotation(SequenceAnnotation annotation) {
+        this.annotation.add((SequenceAnnotationImpl)annotation);
+    }
+    
+    public java.util.Collection<SequenceAnnotation> getAnnotations() {
+        ArrayList<SequenceAnnotation> result = new ArrayList<SequenceAnnotation>();
+        for(int i=0; i < annotation.size(); i++) result.add(annotation.get(i));
+        return result;
+    }
+    
     /**
      * Gets the value of the sequence property.
      * 
