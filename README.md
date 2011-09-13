@@ -1,6 +1,8 @@
 # libSBOLxml: a Java library for parsing and serializing SBOL XML.
 
-We are in the process of setting up this repository.  When it is ready it will contain the code required to build libSBOLxml.
+This is an implementation of the [SBOL Core Interfaces](https://github.com/SynBioDex/libSBOLcore) which uses JAXB to serialize and parse SBOL objects to and from XML.
+
+NOTE: We are actively working on this implementation but it is not ready for use.
 
 ## To checkout and build:
 
@@ -15,7 +17,11 @@ Second, pull down the core submodule:
 
 Third, build libSBOLxml.jar:
 
-    ant
+    ant clean build
+
+Fourth, run the tests:
+
+    ant test
 
 ## Pulling new versions
 
