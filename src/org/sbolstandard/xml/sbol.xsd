@@ -30,7 +30,6 @@
 		<xsd:attribute name="displayId" type="xsd:string" use="required"/>
 		<xsd:attribute name="name" type="xsd:string" />
 		<xsd:attribute name="description" type="xsd:string" />
-		<xsd:attribute name="isCircular" type="xsd:boolean" />
 	</xsd:complexType>
 
 	<xsd:element name="Collection" type="CollectionImpl"/>

@@ -1,0 +1,9 @@
+[{
+    "collectionID": 1,
+    "displayID": "apFAB1",
+    "name": "",
+    "description": "J23101",
+    "type": "promoter",
+    "circular": false,
+    "dnaSequence": { "nucleotides": "TTTACAGCTAGCTCAGTCCTAGGTATTATGCTAGC" }
+}]
