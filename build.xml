@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="libSBOLcore" default="jar" basedir=".">
-	<property name="jar.filename" value="libSBOLcore.jar"/>
+	<property name="jar.filename" value="libSBOLxml.jar"/>
 	<property name="build.dir" value="build"/>
 	<property name="src.dir" value="src"/>
 	<property name="core.src.dir" value="core/src"/>
