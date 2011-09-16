@@ -22,22 +22,29 @@ public class CollectionImpl implements Collection {
     @XmlAttribute
     protected String description = null;
 
-    public String getDisplayId() { return displayId; }
+    public CollectionImpl(){
+        this(null, null, null);
+    }
 
+    public CollectionImpl(String displayId, String name, String description){
+        this.displayId = displayId;
+        this.name = name;
+        this.description = description;
+    }
+
+
+    public String getDisplayId() { return displayId; }
     public void setDisplayId(String value) { this.displayId = value; }
 
     public String getName() { return name; }
-
     public void setName(String value) { this.name = value; }
 
     public String getDescription() { return description; }
-
     public void setDescription(String value) { this.description = value; }
 
     public void addComponent(DnaComponent component){
         this.component.add((DnaComponentImpl)component);
     }
-
     public java.util.Collection<DnaComponent> getComponents(){
         return (java.util.Collection<DnaComponent>)(java.util.Collection<?>)component;
     }

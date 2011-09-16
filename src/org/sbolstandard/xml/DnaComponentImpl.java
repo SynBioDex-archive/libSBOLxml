@@ -35,14 +35,6 @@ public class DnaComponentImpl implements DnaComponent {
         this.description = description;
     }
     
-    public void addType(String uri){
-        this.type.add(uri);
-    }
-
-    public void addType(java.net.URI uri) {
-        this.type.add(uri.toString());
-    }
-
     public java.util.Collection<URI> getTypes() {
         ArrayList<URI> result = new ArrayList<URI>();
         for(int i=0; i < type.size(); i++){
@@ -54,37 +46,31 @@ public class DnaComponentImpl implements DnaComponent {
         }
         return result;
     }
-
-    public void setDnaSequence(DnaSequence sequence){
-        this.sequence = (DnaSequenceImpl)sequence;
-    } 
+    public void addType(String uri){ this.type.add(uri); }
+    public void addType(java.net.URI uri) { this.type.add(uri.toString()); }
 
     public DnaSequence getDnaSequence(){ return sequence; } 
-    
-    public void addAnnotation(SequenceAnnotation annotation) {
-        this.annotation.add((SequenceAnnotationImpl)annotation);
-    }
-    
+    public void setDnaSequence(DnaSequence sequence){ this.sequence = (DnaSequenceImpl)sequence; } 
+
     public java.util.Collection<SequenceAnnotation> getAnnotations() {
         ArrayList<SequenceAnnotation> result = new ArrayList<SequenceAnnotation>();
         for(int i=0; i < annotation.size(); i++) result.add(annotation.get(i));
         return result;
     }
+    public void addAnnotation(SequenceAnnotation annotation) {
+        this.annotation.add((SequenceAnnotationImpl)annotation);
+    }
     
     public DnaSequenceImpl getSequence() { return sequence; }
-
     public void setSequence(DnaSequenceImpl value) { this.sequence = value; }
 
     public String getDisplayId() { return displayId; }
-
     public void setDisplayId(String value) { this.displayId = value; }
 
     public String getName() { return name; }
-
     public void setName(String value) { this.name = value; }
 
     public String getDescription() { return description; }
-
     public void setDescription(String value) { this.description = value; }
     
     /*

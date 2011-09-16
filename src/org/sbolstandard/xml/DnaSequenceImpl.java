@@ -14,12 +14,11 @@ public class DnaSequenceImpl implements DnaSequence{
     @XmlElement(required = true)
     protected String nucleotides = null;
 
-    public String getNucleotides() {
-        return nucleotides;
-    }
+    public DnaSequenceImpl(){ this(null); }
 
-    public void setNucleotides(String value) {
-        this.nucleotides = value;
-    }
+    public DnaSequenceImpl(String nucleotides) { this.nucleotides = nucleotides; }
+
+    public String getNucleotides() { return nucleotides; }
+    public void setNucleotides(String value) { this.nucleotides = value; }
 
 }

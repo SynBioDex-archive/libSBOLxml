@@ -42,20 +42,18 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
     @XmlAttribute(required = true)
     protected String strand = null;
 
-    public java.util.Collection<SequenceAnnotation> getPrecedes(){
-        ArrayList<SequenceAnnotation> result = new ArrayList<SequenceAnnotation>();
-        for(int i=0; i < precede.size(); i++) result.add((SequenceAnnotation)precede.get(i));
-        return result;
-    }
+    public SequenceAnnotationImpl(){ this(null); }
+
+    public SequenceAnnotationImpl(String id){ this.id = id; }
 
     public void addPrecede(SequenceAnnotation precede) {
         assert false; // not yet implemented
         //this.precede.add((JAXBElement<Object>)precede);
     }
-
-
-    public void addFeature(DnaComponent feature){
-        this.feature.add((DnaComponentImpl)precede);
+    public java.util.Collection<SequenceAnnotation> getPrecedes(){
+        ArrayList<SequenceAnnotation> result = new ArrayList<SequenceAnnotation>();
+        for(int i=0; i < precede.size(); i++) result.add((SequenceAnnotation)precede.get(i));
+        return result;
     }
 
     public java.util.Collection<DnaComponent> getFeatures(){
@@ -63,46 +61,24 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
         for(int i=0; i < feature.size(); i++) result.add(feature.get(i));
         return result;
     }
-
-
-    public List<DnaComponentImpl> getFeature() {
-        return this.feature;
+    public void addFeature(DnaComponent feature){
+        this.feature.add((DnaComponentImpl)precede);
     }
 
-    public List<JAXBElement<Object>> getPrecede() {
-        return this.precede;
-    }
+    public String getId() { return id; }
+    public void setId(String value) { this.id = value; }
 
-    public String getId() {
-        return id;
-    }
+    public int getGenbankStart() { return genbankStart; }
+    public void setGenbankStart(int value) { this.genbankStart = value; }
 
-    public void setId(String value) {
-        this.id = value;
-    }
+    public int getEnd() { return end; }
+    public void setEnd(int value) { this.end = value; }
 
-    public int getGenbankStart() {
-        return genbankStart;
-    }
+    public String getStrand() { return strand; }
+    public void setStrand(String value) { this.strand = value; }
 
-    public void setGenbankStart(int value) {
-        this.genbankStart = value;
-    }
-
-    public int getEnd() {
-        return end;
-    }
-
-    public void setEnd(int value) {
-        this.end = value;
-    }
-
-    public String getStrand() {
-        return strand;
-    }
-
-    public void setStrand(String value) {
-        this.strand = value;
-    }
+    // Below here are methods used only by the XML engine
+    public List<DnaComponentImpl> getFeature() { return this.feature; }
+    public List<JAXBElement<Object>> getPrecede() { return this.precede; }
 
 }
