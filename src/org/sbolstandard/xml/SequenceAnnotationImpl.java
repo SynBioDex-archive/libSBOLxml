@@ -8,8 +8,9 @@
 
 package org.sbolstandard.xml;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 import javax.xml.namespace.QName;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -80,5 +81,20 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
     // Below here are methods used only by the XML engine
     public List<DnaComponentImpl> getFeature() { return this.feature; }
     public List<PrecedeReference> getPrecede() { return this.precede; }
+    
+    public void cleanupPostParse(DnaComponentImpl component){
+        Iterator<PrecedeReference> iter = getPrecede().iterator();
+        while(iter.hasNext()){
+            PrecedeReference ref = iter.next();
+            if(ref.getSequenceAnnotation() == null){
+                SequenceAnnotationImpl sa = component.getSequenceAnnotation(ref.getId());
+                if(sa == null){
+                    System.err.println("Could not find referenced sequence annotation: " + ref.getId());
+                } else {
+                    ref.setSequenceAnnotation(sa);
+                }
+            }
+        }
+    }
 
 }

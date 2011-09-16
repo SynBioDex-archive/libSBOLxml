@@ -2,6 +2,7 @@ package org.sbolstandard.xml;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Iterator;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -81,4 +82,20 @@ public class DnaComponentImpl implements DnaComponent {
     }
 
     public List<SequenceAnnotationImpl> getAnnotation() { return this.annotation; }
+    
+    public void cleanupPostParse(){
+        Iterator iter = annotation.iterator();
+        while(iter.hasNext()){
+            ((SequenceAnnotationImpl)iter.next()).cleanupPostParse(this);
+        }
+    }
+    
+    public SequenceAnnotationImpl getSequenceAnnotation(String id){
+        Iterator iter = annotation.iterator();
+        while(iter.hasNext()){
+            SequenceAnnotationImpl sa = ((SequenceAnnotationImpl)iter.next());
+            if(sa.getId().equals(id)) return sa;
+        }
+        return null;
+    }
 }

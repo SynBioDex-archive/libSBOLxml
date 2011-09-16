@@ -32,7 +32,9 @@ public class Parser{
 
 	public CollectionImpl parse(String xml) throws JAXBException {
 		try{
-			return parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
+			CollectionImpl collection = parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
+			collection.cleanupPostParse();
+			return collection;
 		} catch (UnsupportedEncodingException e){
 			e.printStackTrace();
 			return null;

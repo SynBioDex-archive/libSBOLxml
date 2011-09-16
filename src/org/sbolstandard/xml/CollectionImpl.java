@@ -1,7 +1,8 @@
 package org.sbolstandard.xml;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -57,4 +58,11 @@ public class CollectionImpl implements Collection {
         return component;
     }
 
+    public void cleanupPostParse(){
+        Iterator iter = component.iterator();
+        while(iter.hasNext()){
+            ((DnaComponentImpl)iter.next()).cleanupPostParse();
+            
+        }
+    }
 }

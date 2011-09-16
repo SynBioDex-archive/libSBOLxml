@@ -103,6 +103,20 @@ public class TestMarshalling {
         assertEquals(annotation1.getGenbankStart(), annotation2.getGenbankStart());
         assertEquals(annotation1.getEnd(), annotation2.getEnd());
         assertEquals(annotation1.getStrand(), annotation2.getStrand());
+        
+        java.util.Collection<SequenceAnnotation> precedes1 = annotation1.getPrecedes();
+        java.util.Collection<SequenceAnnotation> precedes2 = annotation2.getPrecedes();
+        assertEquals(precedes1.size(), precedes2.size());
+		Iterator iter1 = precedes1.iterator();
+		Iterator iter2 = precedes2.iterator();
+		while(iter1.hasNext()){
+		    SequenceAnnotationImpl sa1 = (SequenceAnnotationImpl)iter1.next();
+		    assertNotNull(sa1);
+		    SequenceAnnotationImpl sa2 = (SequenceAnnotationImpl)iter2.next();
+		    assertNotNull(sa2);
+		    assertEquals(sa1.getId(), sa2.getId());
+		}
+        
     }
 
     public void assertSerializationEquality(CollectionImpl collection) throws Exception {
