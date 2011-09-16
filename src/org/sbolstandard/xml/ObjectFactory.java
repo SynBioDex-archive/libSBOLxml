@@ -36,7 +36,7 @@ public class ObjectFactory {
     private final static QName _SequenceAnnotation_QNAME = new QName("", "SequenceAnnotation");
     private final static QName _DnaComponent_QNAME = new QName("", "DnaComponent");
     private final static QName _DnaSequence_QNAME = new QName("", "DnaSequence");
-    private final static QName _SequenceAnnotationImplPrecede_QNAME = new QName("", "precede");
+    private final static QName _PrecedeReference_QNAME = new QName("", "precede");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.sbolstandard.xml
@@ -113,14 +113,9 @@ public class ObjectFactory {
         return new JAXBElement<DnaSequenceImpl>(_DnaSequence_QNAME, DnaSequenceImpl.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "", name = "precede", scope = SequenceAnnotationImpl.class)
-    @XmlIDREF
-    public JAXBElement<Object> createSequenceAnnotationImplPrecede(Object value) {
-        return new JAXBElement<Object>(_SequenceAnnotationImplPrecede_QNAME, Object.class, SequenceAnnotationImpl.class, value);
+    @XmlElementDecl(namespace = "", name = "precede", scope = PrecedeReference.class)
+    public JAXBElement<PrecedeReference> createPrecedeReference(PrecedeReference value) {
+        return new JAXBElement<PrecedeReference>(_PrecedeReference_QNAME, PrecedeReference.class, null, value);
     }
 
 }

@@ -10,6 +10,7 @@ package org.sbolstandard.xml;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.namespace.QName;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -28,8 +29,8 @@ import org.sbolstandard.core.*;
 public class SequenceAnnotationImpl implements SequenceAnnotation {
 
     protected List<DnaComponentImpl> feature = new ArrayList<DnaComponentImpl>();
-    @XmlElementRef(name = "precede", type = JAXBElement.class)
-    protected List<JAXBElement<Object>> precede = new ArrayList<JAXBElement<Object>>();
+    protected List<PrecedeReference> precede = new ArrayList<PrecedeReference>();
+
     @XmlAttribute(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
@@ -46,13 +47,12 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
 
     public SequenceAnnotationImpl(String id){ this.id = id; }
 
-    public void addPrecede(SequenceAnnotation precede) {
-        assert false; // not yet implemented
-        //this.precede.add((JAXBElement<Object>)precede);
+    public void addPrecede(SequenceAnnotation annotation) {
+        this.precede.add(new PrecedeReference((SequenceAnnotationImpl)annotation));
     }
     public java.util.Collection<SequenceAnnotation> getPrecedes(){
         ArrayList<SequenceAnnotation> result = new ArrayList<SequenceAnnotation>();
-        for(int i=0; i < precede.size(); i++) result.add((SequenceAnnotation)precede.get(i));
+        for(int i=0; i < precede.size(); i++) result.add(precede.get(i).getSequenceAnnotation());
         return result;
     }
 
@@ -79,6 +79,6 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
 
     // Below here are methods used only by the XML engine
     public List<DnaComponentImpl> getFeature() { return this.feature; }
-    public List<JAXBElement<Object>> getPrecede() { return this.precede; }
+    public List<PrecedeReference> getPrecede() { return this.precede; }
 
 }

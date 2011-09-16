@@ -20,12 +20,18 @@ public class TestMarshalling {
 
 		dnaComponent = new DnaComponentImpl("component-id-4444", "DnaComponent 4444", "A Component");
 		collection.getComponent().add(dnaComponent);
-		DnaSequenceImpl sequence = new DnaSequenceImpl("gatica");
-		dnaComponent.setSequence(sequence);
+		dnaComponent.setSequence(new DnaSequenceImpl("gatica"));
 		SequenceAnnotationImpl annotation = new SequenceAnnotationImpl("annotation-id-5422");
+		dnaComponent.addAnnotation(annotation);
 		annotation.setGenbankStart(1);
-		annotation.setEnd(100);
-		dnaComponent.getAnnotation().add(annotation);
+		annotation.setEnd(50);
+		SequenceAnnotationImpl annotation2 = new SequenceAnnotationImpl("annotation-id-1122");
+		dnaComponent.addAnnotation(annotation2);
+		annotation2.setGenbankStart(50);
+		annotation2.setEnd(900);
+		annotation2.setStrand("+");
+		annotation2.addPrecede(annotation);
+		annotation2.addPrecede(annotation2); // This is a circular reference
 		
 		return collection;
 	}
@@ -82,8 +88,22 @@ public class TestMarshalling {
 	public void assertEqual(DnaComponentImpl component1, DnaComponentImpl component2){
 	    assertEquals(component1.getDisplayId(), component2.getDisplayId());
 	    
-		//TODO fill this out more
+	    java.util.Collection<SequenceAnnotation> annotations1 = component1.getAnnotations();
+	    java.util.Collection<SequenceAnnotation> annotations2 = component2.getAnnotations();
+	    assertEquals(annotations1.size(), annotations2.size());
+		Iterator iter1 = annotations1.iterator();
+		Iterator iter2 = annotations2.iterator();
+		while(iter1.hasNext()){
+		    assertEqual((SequenceAnnotationImpl)iter1.next(), (SequenceAnnotationImpl)iter2.next());
+		}
 	}
+
+    public void assertEqual(SequenceAnnotationImpl annotation1, SequenceAnnotationImpl annotation2){
+        assertEquals(annotation1.getId(), annotation2.getId());
+        assertEquals(annotation1.getGenbankStart(), annotation2.getGenbankStart());
+        assertEquals(annotation1.getEnd(), annotation2.getEnd());
+        assertEquals(annotation1.getStrand(), annotation2.getStrand());
+    }
 
     public void assertSerializationEquality(CollectionImpl collection) throws Exception {
 		Parser parser = new Parser();
