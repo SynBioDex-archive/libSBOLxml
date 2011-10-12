@@ -15,6 +15,8 @@ import org.sbolstandard.core.*;
 @XmlType(name = "DnaComponentImpl", propOrder = { "type", "sequence", "annotation" })
 public class DnaComponentImpl implements DnaComponent {
 
+    @XmlAttribute(required = true)
+    protected URI uri = null;
     protected List<String> type = new ArrayList<String>();
     protected DnaSequenceImpl sequence = null;
     protected List<SequenceAnnotationImpl> annotation = new ArrayList<SequenceAnnotationImpl>();
@@ -25,17 +27,20 @@ public class DnaComponentImpl implements DnaComponent {
     @XmlAttribute
     protected String description = null;
 
-
     public DnaComponentImpl(){
-        this(null, null, null);
+        this(null, null, null, null);
     }
 
-    public DnaComponentImpl(String displayId, String name, String description){
+    public DnaComponentImpl(URI uri, String displayId, String name, String description){
+        this.uri = uri;
         this.displayId = displayId;
         this.name = name;
         this.description = description;
     }
-    
+
+    public URI getURI(){ return this.uri; }
+    public void setURI(URI uri){ this.uri = uri; }
+
     public java.util.Collection<URI> getTypes() {
         ArrayList<URI> result = new ArrayList<URI>();
         for(int i=0; i < type.size(); i++){
@@ -83,10 +88,10 @@ public class DnaComponentImpl implements DnaComponent {
 
     public List<SequenceAnnotationImpl> getAnnotation() { return this.annotation; }
     
-    public void cleanupPostParse(){
+    public void cleanupPostParse(CollectionImpl collection){
         Iterator iter = annotation.iterator();
         while(iter.hasNext()){
-            ((SequenceAnnotationImpl)iter.next()).cleanupPostParse(this);
+            ((SequenceAnnotationImpl)iter.next()).cleanupPostParse(collection, this);
         }
     }
     

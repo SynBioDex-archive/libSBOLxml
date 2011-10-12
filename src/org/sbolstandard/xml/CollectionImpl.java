@@ -1,5 +1,6 @@
 package org.sbolstandard.xml;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import org.sbolstandard.core.*;
 public class CollectionImpl implements Collection {
 
     protected List<DnaComponentImpl> component = new ArrayList<DnaComponentImpl>();
+    
+    @XmlAttribute(required = true)
+    protected URI uri = null;
     @XmlAttribute(required = true)
     protected String displayId = null;
     @XmlAttribute
@@ -24,15 +28,18 @@ public class CollectionImpl implements Collection {
     protected String description = null;
 
     public CollectionImpl(){
-        this(null, null, null);
+        this(null, null, null, null);
     }
 
-    public CollectionImpl(String displayId, String name, String description){
+    public CollectionImpl(URI uri, String displayId, String name, String description){
+		this.uri = uri;
         this.displayId = displayId;
         this.name = name;
         this.description = description;
     }
 
+    public URI getURI(){ return this.uri; }
+    public void setURI(URI uri){ this.uri = uri; }
 
     public String getDisplayId() { return displayId; }
     public void setDisplayId(String value) { this.displayId = value; }
@@ -54,6 +61,16 @@ public class CollectionImpl implements Collection {
     /*
     * Below here are methods used by the XML system but not humans.
     */
+
+	public DnaComponentImpl findDnaComponent(URI uri){
+		Iterator<DnaComponentImpl> iter = this.component.iterator();
+		while(iter.hasNext()){
+			DnaComponentImpl comp = iter.next();
+			if(comp.getURI().equals(uri)) return comp;
+		}
+		return null;
+	}
+	
     public List<DnaComponentImpl> getComponent() {
         return component;
     }
@@ -61,7 +78,7 @@ public class CollectionImpl implements Collection {
     public void cleanupPostParse(){
         Iterator iter = component.iterator();
         while(iter.hasNext()){
-            ((DnaComponentImpl)iter.next()).cleanupPostParse();
+            ((DnaComponentImpl)iter.next()).cleanupPostParse(this);
             
         }
     }

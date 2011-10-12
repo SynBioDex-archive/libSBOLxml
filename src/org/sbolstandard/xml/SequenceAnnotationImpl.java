@@ -8,45 +8,60 @@
 
 package org.sbolstandard.xml;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 import javax.xml.namespace.QName;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 
 import org.sbolstandard.core.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SequenceAnnotationImpl", propOrder = { "feature", "precede" })
+@XmlType(name = "SequenceAnnotationImpl", propOrder = { "precede" })
 public class SequenceAnnotationImpl implements SequenceAnnotation {
 
-    protected List<DnaComponentImpl> feature = new ArrayList<DnaComponentImpl>();
     protected List<PrecedeReference> precede = new ArrayList<PrecedeReference>();
 
+    @XmlAttribute(required = true)
+    protected URI uri = null;
     @XmlAttribute(required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
     protected String id = null;
     @XmlAttribute(required = true)
-    protected int genbankStart = 1;
+    protected int bioStart = 1;
     @XmlAttribute(required = true)
-    protected int end = 1;
+    protected int bioEnd = 1;
     @XmlAttribute(required = true)
     protected String strand = null;
+	@XmlAttribute
+	protected String subComponentURI = null;
 
-    public SequenceAnnotationImpl(){ this(null); }
+	@XmlTransient
+	private DnaComponentImpl subComponent = null;
+	
+    public SequenceAnnotationImpl(){ this(null, null); }
 
-    public SequenceAnnotationImpl(String id){ this.id = id; }
+    public SequenceAnnotationImpl(URI uri, String id){ 
+		this.uri = uri;
+		this.id = id;
+	}
+
+    public URI getURI(){ return this.uri; }
+    public void setURI(URI uri){ this.uri = uri; }
 
     public void addPrecede(SequenceAnnotation annotation) {
         this.precede.add(new PrecedeReference((SequenceAnnotationImpl)annotation));
@@ -57,32 +72,31 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
         return result;
     }
 
-    public java.util.Collection<DnaComponent> getFeatures(){
-        ArrayList<DnaComponent> result = new ArrayList<DnaComponent>();
-        for(int i=0; i < feature.size(); i++) result.add(feature.get(i));
-        return result;
-    }
-    public void addFeature(DnaComponent feature){
-        this.feature.add((DnaComponentImpl)precede);
-    }
+    public DnaComponent getSubComponent(){ return this.subComponent; }
+	public void setSubComponent(DnaComponent subComponent) {
+		this.subComponent = (DnaComponentImpl)subComponent;
+		this.subComponentURI = this.subComponent.getURI().toString();
+	}
 
     public String getId() { return id; }
     public void setId(String value) { this.id = value; }
 
-    public int getGenbankStart() { return genbankStart; }
-    public void setGenbankStart(int value) { this.genbankStart = value; }
+    public int getBioStart() { return bioStart; }
+    public void setBioStart(int value) { this.bioStart = value; }
 
-    public int getEnd() { return end; }
-    public void setEnd(int value) { this.end = value; }
+    public int getBioEnd() { return bioEnd; }
+    public void setBioEnd(int value) { this.bioEnd = value; }
 
     public String getStrand() { return strand; }
     public void setStrand(String value) { this.strand = value; }
 
     // Below here are methods used only by the XML engine
-    public List<DnaComponentImpl> getFeature() { return this.feature; }
+	public String getSubComponentURI(){ return this.subComponentURI; }
+	public void setSubComponentURI(String uri) { this.subComponentURI = uri; }
+
     public List<PrecedeReference> getPrecede() { return this.precede; }
     
-    public void cleanupPostParse(DnaComponentImpl component){
+    public void cleanupPostParse(CollectionImpl collection, DnaComponentImpl component){
         Iterator<PrecedeReference> iter = getPrecede().iterator();
         while(iter.hasNext()){
             PrecedeReference ref = iter.next();
@@ -95,6 +109,10 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
                 }
             }
         }
+
+		if(this.subComponentURI != null && this.subComponentURI.length() > 0){
+			this.subComponent = collection.findDnaComponent(UtilURI.Create(this.subComponentURI));
+		}
     }
 
 }
