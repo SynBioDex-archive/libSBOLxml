@@ -37,11 +37,6 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
     @XmlAttribute(required = true)
     protected URI uri = null;
     @XmlAttribute(required = true)
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlID
-    @XmlSchemaType(name = "ID")
-    protected String id = null;
-    @XmlAttribute(required = true)
     protected int bioStart = 1;
     @XmlAttribute(required = true)
     protected int bioEnd = 1;
@@ -53,12 +48,9 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
 	@XmlTransient
 	private DnaComponentImpl subComponent = null;
 	
-    public SequenceAnnotationImpl(){ this(null, null); }
+    public SequenceAnnotationImpl(){ this(null); }
 
-    public SequenceAnnotationImpl(URI uri, String id){ 
-		this.uri = uri;
-		this.id = id;
-	}
+    public SequenceAnnotationImpl(URI uri){  this.uri = uri; }
 
     public URI getURI(){ return this.uri; }
     public void setURI(URI uri){ this.uri = uri; }
@@ -77,9 +69,6 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
 		this.subComponent = (DnaComponentImpl)subComponent;
 		this.subComponentURI = this.subComponent.getURI().toString();
 	}
-
-    public String getId() { return id; }
-    public void setId(String value) { this.id = value; }
 
     public int getBioStart() { return bioStart; }
     public void setBioStart(int value) { this.bioStart = value; }
@@ -101,9 +90,9 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
         while(iter.hasNext()){
             PrecedeReference ref = iter.next();
             if(ref.getSequenceAnnotation() == null){
-                SequenceAnnotationImpl sa = component.getSequenceAnnotation(ref.getId());
+                SequenceAnnotationImpl sa = component.getSequenceAnnotation(ref.getURI());
                 if(sa == null){
-                    System.err.println("Could not find referenced sequence annotation: " + ref.getId());
+                    System.err.println("Could not find referenced sequence annotation: " + ref.getURI());
                 } else {
                     ref.setSequenceAnnotation(sa);
                 }

@@ -95,11 +95,11 @@ public class DnaComponentImpl implements DnaComponent {
         }
     }
     
-    public SequenceAnnotationImpl getSequenceAnnotation(String id){
+    public SequenceAnnotationImpl getSequenceAnnotation(URI uri){
         Iterator iter = annotation.iterator();
         while(iter.hasNext()){
             SequenceAnnotationImpl sa = ((SequenceAnnotationImpl)iter.next());
-            if(sa.getId().equals(id)) return sa;
+            if(sa.getURI().equals(uri)) return sa;
         }
         return null;
     }

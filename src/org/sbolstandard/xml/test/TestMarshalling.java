@@ -22,12 +22,12 @@ public class TestMarshalling {
 		dnaComponent = new DnaComponentImpl(UtilURI.Create("/test/2"), "component-id-4444", "DnaComponent 4444", "A Component");
 		collection.getComponent().add(dnaComponent);
 		dnaComponent.setSequence(new DnaSequenceImpl(UtilURI.Create("/seq/1"), "gataca"));
-		SequenceAnnotationImpl annotation = new SequenceAnnotationImpl(UtilURI.Create("/anno/1"), "annotation-id-5422");
+		SequenceAnnotationImpl annotation = new SequenceAnnotationImpl(UtilURI.Create("/anno/1"));
 		dnaComponent.addAnnotation(annotation);
 		annotation.setBioStart(1);
 		annotation.setBioEnd(50);
 		annotation.setSubComponent(dnaComponent);
-		SequenceAnnotationImpl annotation2 = new SequenceAnnotationImpl(UtilURI.Create("/anno/2"), "annotation-id-1122");
+		SequenceAnnotationImpl annotation2 = new SequenceAnnotationImpl(UtilURI.Create("/anno/2"));
 		dnaComponent.addAnnotation(annotation2);
 		annotation2.setBioStart(50);
 		annotation2.setBioEnd(900);
@@ -101,7 +101,7 @@ public class TestMarshalling {
 	}
 
     public void assertEqual(SequenceAnnotationImpl annotation1, SequenceAnnotationImpl annotation2){
-        assertEquals(annotation1.getId(), annotation2.getId());
+        assertEquals(annotation1.getURI(), annotation2.getURI());
         assertEquals(annotation1.getBioStart(), annotation2.getBioStart());
         assertEquals(annotation1.getBioEnd(), annotation2.getBioEnd());
         assertEquals(annotation1.getStrand(), annotation2.getStrand());
@@ -116,7 +116,7 @@ public class TestMarshalling {
 		    assertNotNull(sa1);
 		    SequenceAnnotationImpl sa2 = (SequenceAnnotationImpl)iter2.next();
 		    assertNotNull(sa2);
-		    assertEquals(sa1.getId(), sa2.getId());
+		    assertEquals(sa1.getURI(), sa2.getURI());
 		}
         
     }

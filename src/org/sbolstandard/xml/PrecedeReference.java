@@ -1,5 +1,6 @@
 package org.sbolstandard.xml;
 
+import java.net.URI;
 import java.util.List;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.*;
@@ -9,7 +10,7 @@ import javax.xml.bind.annotation.*;
 public class PrecedeReference {
 
     @XmlAttribute(required = true)
-    private String id = null;
+    private URI uri = null;
 
     private SequenceAnnotationImpl sequenceAnnotation = null;
 
@@ -21,11 +22,11 @@ public class PrecedeReference {
 
     public SequenceAnnotationImpl getSequenceAnnotation(){ return sequenceAnnotation; }
     public void setSequenceAnnotation(SequenceAnnotationImpl sequenceAnnotation){
-        this.id = sequenceAnnotation.getId();
+        this.uri = sequenceAnnotation.getURI();
         this.sequenceAnnotation = sequenceAnnotation;
     }
 
     // The remaining methods are to be used only by the XML marshalling engine
-    public String getId(){ return this.id; }
-    public void setId(String id) { this.id = id; this.sequenceAnnotation = null; }
+    public URI getURI(){ return this.uri; }
+    public void setURI(URI uri) { this.uri = uri; this.sequenceAnnotation = null; }
 }
