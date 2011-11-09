@@ -50,11 +50,16 @@ public class CollectionImpl implements Collection {
     public String getDescription() { return description; }
     public void setDescription(String value) { this.description = value; }
 
+    public java.util.Collection<DnaComponent> getComponents(){
+        return (java.util.Collection<DnaComponent>)(java.util.Collection<?>)component;
+    }
     public void addComponent(DnaComponent component){
         this.component.add((DnaComponentImpl)component);
     }
-    public java.util.Collection<DnaComponent> getComponents(){
-        return (java.util.Collection<DnaComponent>)(java.util.Collection<?>)component;
+    public void removeComponent(DnaComponent component){
+        int index = this.component.indexOf((DnaComponentImpl)component);
+        if(index == -1) return;
+        this.component.remove(index);
     }
 
 

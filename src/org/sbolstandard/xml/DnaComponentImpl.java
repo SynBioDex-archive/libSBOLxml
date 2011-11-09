@@ -54,7 +54,12 @@ public class DnaComponentImpl implements DnaComponent {
     }
     public void addType(String uri){ this.type.add(uri); }
     public void addType(java.net.URI uri) { this.type.add(uri.toString()); }
-
+    public void removeType(java.net.URI uri) {
+        int index = this.type.indexOf(uri.toString());
+        if(index == -1) return;
+        this.type.remove(index);
+    }
+    
     public DnaSequence getDnaSequence(){ return sequence; } 
     public void setDnaSequence(DnaSequence sequence){ this.sequence = (DnaSequenceImpl)sequence; } 
 
@@ -65,6 +70,11 @@ public class DnaComponentImpl implements DnaComponent {
     }
     public void addAnnotation(SequenceAnnotation annotation) {
         this.annotation.add((SequenceAnnotationImpl)annotation);
+    }
+    public void removeAnnotation(SequenceAnnotation annotation){
+        int index = this.annotation.indexOf((SequenceAnnotationImpl)annotation);
+        if(index == -1) return;
+        this.annotation.remove(index);
     }
     
     public DnaSequenceImpl getSequence() { return sequence; }

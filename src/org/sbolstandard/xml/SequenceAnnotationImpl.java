@@ -63,7 +63,12 @@ public class SequenceAnnotationImpl implements SequenceAnnotation {
         for(int i=0; i < precede.size(); i++) result.add(precede.get(i).getSequenceAnnotation());
         return result;
     }
-
+    public void removePrecede(SequenceAnnotation annotation){
+        int index = this.precede.indexOf((SequenceAnnotationImpl)annotation);
+        if(index == -1) return;
+        this.precede.remove(index);
+    }
+    
     public DnaComponent getSubComponent(){ return this.subComponent; }
 	public void setSubComponent(DnaComponent subComponent) {
 		this.subComponent = (DnaComponentImpl)subComponent;
