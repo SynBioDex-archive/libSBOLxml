@@ -2,7 +2,7 @@
 
 This is an implementation of the [SBOL Core Interfaces](https://github.com/SynBioDex/libSBOLcore) which uses JAXB to serialize and parse SBOL objects to and from XML.
 
-## NOTE: THE API AND XML SYNTAX IN THIS LIBRARY ARE STILL UNDER REVIEW AND MAY CHANGE
+### THE API AND XML SYNTAX IN THIS LIBRARY ARE STILL UNDER REVIEW AND MAY CHANGE
 
 ## To checkout and build:
 
