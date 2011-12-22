@@ -1,8 +1,6 @@
 ## libSBOLxml: a Java library for parsing and serializing SBOL XML.
 
-This is an implementation of the [SBOL Core Interfaces](https://github.com/SynBioDex/libSBOLcore) which uses JAXB to serialize and parse SBOL objects to and from XML.
-
-### THE API AND XML SYNTAX IN THIS LIBRARY ARE STILL UNDER REVIEW AND MAY CHANGE
+[libSBOLxml](https://github.com/SynBioDex/libSBOLxml) is an implementation of the [SBOL Core Interfaces](https://github.com/SynBioDex/libSBOLcore) which uses JAXB to serialize and parse SBOL objects to and from XML.
 
 ## To checkout and build:
 
@@ -98,3 +96,67 @@ If you have an existing git repository for this project and want to pull from Gi
     cd core
     git pull
 
+# Using libSBOLxml
+
+## Serializing and deserializing SBOL XML
+
+Here is a example which reads and then serializes an SBOL XML file:
+
+	import java.io.*;
+	import org.sbolstandard.core.*;
+	import org.sbolstandard.xml.*;
+	
+	public class Main {
+		public static void main(String[] args) throws Exception {
+			Parser parser = new Parser();
+			CollectionImpl collection = parser.parse(new FileInputStream(new File("testSBOL.xml")));
+			System.out.println(parser.serialize(collection));
+		}
+	}
+
+## Constructing collections
+
+And here we're creating a collection using the libSBOLxml specific APIs.
+
+	import org.sbolstandard.core.*;
+	import org.sbolstandard.xml.*;
+	
+	public class Main{
+		public static void main(String[] args) throws Exception {
+			CollectionImpl collection = new CollectionImpl(UtilURI.Create("/col/1"), 
+															"collection-id-1234", 
+															"A human readable collection name", 
+															"A human readable collection description.");
+														
+			DnaComponentImpl dnaComponent = new DnaComponentImpl(UtilURI.Create("/comp/1"),
+																"component-id-4321", 
+																"DnaComponent 4321", 
+																"A human readable component name");
+			collection.getComponent().add(dnaComponent);
+			
+			dnaComponent.setSequence(new DnaSequenceImpl(UtilURI.Create("/seq/1"),
+			 											"agcgcccaatacgcaaaccgcctctccccgcgcgttggccga"));
+		
+			SequenceAnnotationImpl annotation = new SequenceAnnotationImpl(UtilURI.Create("/anno/1"));
+			annotation.setBioStart(1);
+			annotation.setBioEnd(10);
+			dnaComponent.addAnnotation(annotation);
+		}
+	}
+
+For examples of constructing and using collections with libSBOLxml, look at  [TestMarshalling.java](https://github.com/SynBioDex/libSBOLxml/blob/master/src/org/sbolstandard/xml/test/TestMarshalling.java).
+
+# Tech notes:
+
+libSBOLxml uses the [Java Architecture for XML Binding](http://www.oracle.com/technetwork/articles/javase/index-140168.html) (JAXB) to parse SBOL xml and serialize collections.  The classes which implement the org.sbolstandard.core interfaces (found in org.sbolstandard.xml) use Java decorators to signal how JAXB should handle those data.
+
+For example, in CollectionImpl you'll find this snippet:
+
+	@XmlAccessorType(XmlAccessType.FIELD)
+	@XmlType(name = "CollectionImpl", propOrder = { "component" })
+	@XmlRootElement(name = "Collection")
+	public class CollectionImpl implements Collection {
+		...
+	}
+
+The decorators before the class definition signal to JAXB the details of XML handling like the name of the document root element and the order and type of sub elements.
