@@ -33,7 +33,6 @@ public class Parser{
 	public CollectionImpl parse(String xml) throws JAXBException {
 		try{
 			CollectionImpl collection = parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
-			collection.cleanupPostParse();
 			return collection;
 		} catch (UnsupportedEncodingException e){
 			e.printStackTrace();
@@ -46,6 +45,8 @@ public class Parser{
 		JAXBContext jc = JAXBContext.newInstance( packageName );
 		Unmarshaller u = jc.createUnmarshaller();
 		JAXBElement doc = (JAXBElement)u.unmarshal(input);
-		return (CollectionImpl)doc.getValue();
+		CollectionImpl collection = (CollectionImpl)doc.getValue();
+		collection.cleanupPostParse();
+		return collection;
 	}
 }

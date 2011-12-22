@@ -17,21 +17,7 @@ import org.sbolstandard.core.*;
 public class Main {
 	public static void printHelp(){
 		System.err.println("Usage:");
-		System.err.println("java --jar libSBOLxml.jar --test-parse <filename.xml>");
-	}
-	
-	public static String readFile(File file) throws FileNotFoundException {
-		StringBuilder text = new StringBuilder();
-		String NL = System.getProperty("line.separator");
-		Scanner scanner = new Scanner(new FileInputStream(file));
-		try {
-			while (scanner.hasNextLine()){
-				text.append(scanner.nextLine() + NL);
-			}
-		} finally {
-			scanner.close();
-		}
-		return text.toString();
+		System.err.println("java --jar libSBOLxml.jar --parse <filename.xml>");
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -46,22 +32,10 @@ public class Main {
 				return;
 			}
 			Parser parser = new Parser();
-			CollectionImpl collection = parser.parse(Main.readFile(input));
-			System.out.println("Successfully parsed " + input);
+			CollectionImpl collection = parser.parse(new FileInputStream(input));
+			System.out.println("Successfully parsed " + input + " with Parser.parse(InputStream input)");
 			System.out.println("Reserializing:");
 			System.out.println(parser.serialize(collection));
-			
-			Collection<DnaComponent> components = collection.getComponents();
-			for(Iterator<DnaComponent> iter = components.iterator(); iter.hasNext();) {
-				DnaComponent component = iter.next();
-				System.out.println(component.getName());
-
-				for(Iterator<SequenceAnnotation> annotations = component.getAnnotations().iterator(); annotations.hasNext();) {
-					SequenceAnnotation annotation = annotations.next();
-					System.out.println("\t" + annotation);
-				}
-			}
-
 		} else {
 			Main.printHelp();
 			return;
