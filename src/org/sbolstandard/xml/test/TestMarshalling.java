@@ -114,8 +114,11 @@ public class TestMarshalling {
 		while(iter1.hasNext()){
 		    SequenceAnnotationImpl sa1 = (SequenceAnnotationImpl)iter1.next();
 		    assertNotNull(sa1);
+			assertNotNull(sa1.getPrecede());
 		    SequenceAnnotationImpl sa2 = (SequenceAnnotationImpl)iter2.next();
 		    assertNotNull(sa2);
+			assertNotNull(sa2.getPrecede());
+			System.out.println(sa1.getPrecede() + ":" + sa2.getPrecede());
 		    assertEquals(sa1.getURI(), sa2.getURI());
 		}
         

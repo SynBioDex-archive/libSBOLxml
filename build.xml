@@ -29,6 +29,9 @@
 	<target name="jar" depends="build">
 		<jar jarfile="${jar.filename}">
 			<fileset dir="${build.dir}"/>
+            <manifest>
+                <attribute name="Main-Class" value="org.sbolstandard.xml.Main"/>
+            </manifest>
 		</jar>
 	</target>
 
